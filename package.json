@@ -9,7 +9,8 @@
     "ts.check": "tsc --project tsconfig.json",
     "add-build": "git add dist",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon ./src/main.ts"
+    "dev": "nodemon ./src/main.ts",
+    "vercel-build": "prisma generate && prisma migrate deploy && build"
   },
   "prisma": {
     "seed": "ts-node ./prisma/seed.ts"

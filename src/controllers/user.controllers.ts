@@ -91,7 +91,9 @@ export const logoutController = async (
 ) => {
   //delete the cookie
   //send a response"Logged out"
-  res.clearCookie('token');
+  res.clearCookie('token', {
+    sameSite: 'none',
+  });
   res.status(200).send('Logged out');
 };
 

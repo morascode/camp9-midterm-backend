@@ -10,7 +10,7 @@
     "add-build": "git add dist",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon ./src/main.ts",
-    "vercel-build": "prisma generate && prisma db push && build"
+    "vercel-build": "prisma generate && prisma db push && pnpm build"
   },
   "prisma": {
     "seed": "ts-node ./prisma/seed.ts"

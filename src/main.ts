@@ -26,6 +26,11 @@ app.use('/api/1.0/booking', bookingRoute);
 
 app.use('/api/1.0/movies', movieRouter);
 
+app.get('/test', (req, res) => {
+  res.json({ message: 'hello' });
+});
+
 app.listen(PORT, () => {
   console.log(`running on port ${PORT}`);
 });
+export default app;

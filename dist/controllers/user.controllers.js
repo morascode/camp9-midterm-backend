@@ -67,7 +67,6 @@ const loginController = (req, res, next) => __awaiter(void 0, void 0, void 0, fu
         httpOnly: true,
         maxAge: 24 * 60 * 60 * 1000,
         secure: process.env.NODE_ENV !== 'development',
-        sameSite: false,
     });
     //authenticating user
     res.send({ token });

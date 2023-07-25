@@ -1,0 +1,93 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["jsonProtocol"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+  shadowDatabaseUrl = env("POSTGRES_URL_NON_POOLING") // used for migrations
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  firstName String
+  lastName  String
+  password  String
+  bookings  Booking[]
+  bookmarks Movie[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Create a type Screening encompassing id, date, time, movieId, bookings
+model Screening {
+  id        String    @id @default(uuid())
+  time      String
+  date      String
+  movieId   String
+  bookings  Booking[] 
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+// Create a type for a Booking including id, screening, screeningId, seats, user, userId, createdAt, updatedAt
+model Booking {
+  id          String     @id @default(uuid())
+  screening   Screening  @relation(fields: [screeningId], references: [id])
+  screeningId String
+  seats       Seat[]   
+  user        User       @relation(fields: [userId], references: [id])
+  userId      String
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  totalPrice  Decimal    
+}
+
+// create a model for a Seat id, row, number, price, booking, bookingId
+model Seat {
+  id        String   @id @default(uuid())
+  row       String
+  number    Int
+  price     Decimal
+  booking   Booking? @relation(fields: [bookingId], references: [id])
+  bookingId String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt 
+}
+
+
+model Movie {
+  id            Int      @id @default(autoincrement())
+  tmdbId        Int      @unique
+  title         String
+  backdropPath  String?
+  posterPath    String?
+  releaseDate   DateTime
+  runtime       Int?
+  voteAverage   Float?
+  overview      String?
+  credits       Credit[]
+  genres        Genre[]  @relation("MovieGenres")
+  bookmarkedBy User[]
+}
+
+model Genre {
+  id     Int     @id
+  name   String
+  movies Movie[] @relation("MovieGenres")
+}
+
+model Credit {
+  id        Int    @id @default(autoincrement())
+  tmdbId    Int    @unique
+  movieId   Int
+  movie     Movie  @relation(fields: [movieId], references: [id])
+  cast      Json?
+  crew      Json?
+}

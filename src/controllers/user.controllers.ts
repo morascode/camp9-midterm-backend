@@ -92,6 +92,7 @@ export const logoutController = async (
   //delete the cookie
   //send a response"Logged out"
   res.clearCookie('token', {
+    secure: process.env.NODE_ENV !== 'development',
     sameSite: 'none',
   });
   res.status(200).send('Logged out');

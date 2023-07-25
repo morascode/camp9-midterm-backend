@@ -74,7 +74,7 @@ export const loginController = async (
     httpOnly: true,
     maxAge: 24 * 60 * 60 * 1000,
     secure: process.env.NODE_ENV !== 'development',
-    sameSite: 'none',
+    sameSite: 'lax',
   });
   //authenticating user
   res.send({ token });
@@ -93,7 +93,7 @@ export const logoutController = async (
   //send a response"Logged out"
   res.clearCookie('token', {
     secure: process.env.NODE_ENV !== 'development',
-    sameSite: 'none',
+    sameSite: 'lax',
   });
   res.status(200).send('Logged out');
 };

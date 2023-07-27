@@ -26,8 +26,8 @@ app.use('/api/1.0/booking', bookingRoute);
 
 app.use('/api/1.0/movies', movieRouter);
 
-app.get('/test', (req, res) => {
-  res.json({ message: 'hello' });
+app.get('/', (req, res) => {
+  res.status(200).send('This is the server for CineScape.');
 });
 
 app.listen(PORT, () => {

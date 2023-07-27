@@ -22,8 +22,8 @@ app.use((0, cookie_parser_1.default)());
 app.use('/api/1.0/user', user_routes_1.default);
 app.use('/api/1.0/booking', booking_routes_1.default);
 app.use('/api/1.0/movies', movies_routes_1.default);
-app.get('/test', (req, res) => {
-    res.json({ message: 'hello' });
+app.get('/', (req, res) => {
+    res.status(200).send('This is the server for CineScape.');
 });
 app.listen(PORT, () => {
     console.log(`running on port ${PORT}`);

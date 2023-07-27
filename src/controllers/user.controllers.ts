@@ -38,7 +38,7 @@ export const signupController = async (
   });
 
   res.cookie('token', token, {
-    httpOnly: false,
+    httpOnly: true,
     maxAge: 60 * 60 * 1000,
     secure: process.env.NODE_ENV !== 'development',
   });
@@ -71,7 +71,7 @@ export const loginController = async (
   });
 
   res.cookie('token', token, {
-    httpOnly: false,
+    httpOnly: true,
     maxAge: 24 * 60 * 60 * 1000,
     secure: process.env.NODE_ENV !== 'development',
     sameSite: 'none',

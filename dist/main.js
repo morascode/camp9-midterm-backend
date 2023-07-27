@@ -25,7 +25,7 @@ app.use('/api/1.0/movies', movies_routes_1.default);
 app.get('/', (req, res) => {
     res
         .status(200)
-        .send('<p>This is the server for CineScape.</p><p><a href="https://camp9-midterm-frontend.vercel.app">Visit CineScape</a></p>');
+        .send('<h1 style="text-align:center;margin-top:3rem">This is the server for CineScape.</h1><h2 style="text-align:center"><a href="https://camp9-midterm-frontend.vercel.app">Visit CineScape</a></h2>');
 });
 app.listen(PORT, () => {
     console.log(`running on port ${PORT}`);

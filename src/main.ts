@@ -27,7 +27,11 @@ app.use('/api/1.0/booking', bookingRoute);
 app.use('/api/1.0/movies', movieRouter);
 
 app.get('/', (req, res) => {
-  res.status(200).send('This is the server for CineScape.');
+  res
+    .status(200)
+    .send(
+      '<p>This is the server for CineScape.</p><p><a href="https://camp9-midterm-frontend.vercel.app">Visit CineScape</a></p>'
+    );
 });
 
 app.listen(PORT, () => {

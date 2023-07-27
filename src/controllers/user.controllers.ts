@@ -93,7 +93,7 @@ export const logoutController = async (
   //send a response"Logged out"
   res.clearCookie('token', {
     secure: process.env.NODE_ENV !== 'development',
-    sameSite: 'lax',
+    sameSite: 'none',
   });
   res.status(200).send('Logged out');
 };

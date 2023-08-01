@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import { Request, Response, NextFunction } from 'express';
-import { number } from 'zod';
+import jwt from 'jsonwebtoken';
 
 const prisma = new PrismaClient();
 
@@ -69,12 +69,22 @@ export const getMovieDetailsController = async (
   res: Response,
   next: NextFunction
 ) => {
+  const token = req.cookies.token;
+  const { userId } = jwt.verify(token, process.env.JWT_SECRET!) as {
+    userId: string;
+  };
   const movieId = req.params.movieId;
   const movie = await prisma.movie.findUnique({
     where: { tmdbId: parseInt(movieId) },
     include: {
       genres: true,
       credits: true,
+      bookmarkedBy: {
+        where: { id: userId },
+        select: {
+          id: true,
+        },
+      },
     },
   });
   res.send({
